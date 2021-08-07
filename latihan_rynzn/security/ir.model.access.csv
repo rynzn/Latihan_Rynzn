@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kelas_kelas,latihan_rynzn.latihan_rynzn,model_kelas_kelas,base.group_user,1,1,1,1
+access_matkul_matkul,latihan_rynzn.latihan_rynzn,model_matkul_matkul,base.group_user,1,1,1,1

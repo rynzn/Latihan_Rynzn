@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="submenu_dosen_act" model="ir.actions.act_window">
+            <field name="name">Dosen</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_dosen', '=', True)]</field>
+        </record>
+
+        <record id="submenu_matkul_act" model="ir.actions.act_window">
+            <field name="name">Matkul</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record id="menu_kelas_act" model="ir.actions.act_window">
+            <field name="name">Kelas</field>
+            <field name="res_model">kelas.kelas</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="menu_matkul_act" model="ir.actions.act_window">
+            <field name="name">Mata Kuliah</field>
+            <field name="res_model">matkul.matkul</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="menu_dosen"
+          name="Dosen"
+          parent="contacts.menu_contacts"
+          action="submenu_dosen_act"/>
+        
+        <menuitem id="menu_matkul"
+          name="Matkul"
+          parent="contacts.menu_contacts"/>
+
+        <menuitem id="submenu_kelas"
+          name="Kelas"
+          parent="menu_matkul"
+          action="menu_kelas_act"/>
+        
+        <menuitem id="submenu_matkul"
+          name="Matkul"
+          parent="menu_matkul"
+          action="menu_matkul_act"/>
+          
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="name">kelas.kelas.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="age"/>
+                    <field name="is_dosen"/>
+                    <field name="kelas_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="kelas_form">
+            <field name="name">kelas.kelas.form</field>
+                <field name="model">kelas.kelas</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Kelas">
+                        <sheet>
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="wali_kelas"/>
+                                <field name="matkul_ids"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+        </record>
+
+        <record model="ir.ui.view" id="matkul_form">
+            <field name="name">matkul.matkul.form</field>
+                <field name="model">matkul.matkul</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Kelas">
+                        <sheet>
+                            <group>
+                                <field name="name"/>
+                                <field name="kode"/>
+                                <field name="kelas_ids"/>
+                                <field name="partner_id"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+        </record>
+
+        <record model="ir.ui.view" id="kelas_kanban_view">
+            <field name="name">kelas.kelas.kanban</field>
+            <field name="model">kelas.kelas</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="wali_kelas"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="kanban_details">
+                                <ul>
+                                    <li><b>Kelas    :</b><field name="name"/></li>
+                                    <li><b>Wali Kelas   :</b> <field name="wali_kelas"/></li>
+                                </ul>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="matkul_kanban_view">
+            <field name="name">matkul.matkul.kanban</field>
+            <field name="model">matkul.matkul</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="kode"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="kanban_details">
+                                <ul>
+                                    <li><b>Mata Kuliah  :</b><field name="name"/></li>
+                                    <li><b>Kode :</b> <field name="kode"/></li>
+                                </ul>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tree_kelas">
+            <field name="name">kelas.kelas.tree</field>
+            <field name="model">kelas.kelas</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="wali_kelas"/>
+                    <field name="partner_id"/>
+                    <field name="matkul_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tree_matkul">
+            <field name="name">matkul.matkul.tree</field>
+            <field name="model">matkul.matkul</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="kelas_ids"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
