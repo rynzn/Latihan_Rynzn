@@ -5,7 +5,7 @@
             <field name="name">Dosen</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('is_dosen', '=', True)]</field>
+            <field name="domain">[('is_dosen', '=', 'True')]</field>
         </record>
 
         <record id="submenu_matkul_act" model="ir.actions.act_window">
@@ -52,6 +52,7 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='vat']" position="after">
+                    <field name="birthday"/>
                     <field name="age"/>
                     <field name="is_dosen"/>
                     <field name="kelas_id"/>
